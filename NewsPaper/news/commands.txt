@@ -1,0 +1,52 @@
+from django.contrib.auth.models import User
+from news.models import Author, Category, Post, Comment
+
+user1 = User.objects.get(username='user1')
+user2 = User.objects.get(username='user2')
+
+author1 = Author.objects.create(user=user1)
+author2 = Author.objects.create(user=user2)
+
+category1 = Category.objects.create(name='Sport')
+category2 = Category.objects.create(name='Politics')
+category3 = Category.objects.create(name='Education')
+category4 = Category.objects.create(name='Technology')
+
+post1 = Post.objects.create(author=author1, post_type='AR', title='Article 1', text='This is the text of article 1.')
+post2 = Post.objects.create(author=author1, post_type='AR', title='Article 2', text='This is the text of article 2.')
+news1 = Post.objects.create(author=author2, post_type='NW', title='News 1', text='This is the text of news 1.')
+
+post1.categories.add(category1, category2)
+post2.categories.add(category3)
+news1.categories.add(category2, category4)
+
+comment1 = Comment.objects.create(post=post1, user=user1, text='Comment 1 on Article 1')
+comment2 = Comment.objects.create(post=post1, user=user2, text='Comment 2 on Article 1')
+comment3 = Comment.objects.create(post=post2, user=user1, text='Comment 1 on Article 2')
+comment4 = Comment.objects.create(post=news1, user=user2, text='Comment 1 on News 1')
+
+post1.like()
+post1.like()
+post2.like()
+news1.dislike()
+
+comment1.like()
+comment2.dislike()
+comment3.like()
+comment4.like()
+comment4.like()
+
+author1.update_rating()
+author2.update_rating()
+
+best_author = Author.objects.order_by('-rating').first()
+print(best_author.user.username, best_author.rating)
+
+best_post = Post.objects.order_by('-rating').first()
+print(best_post.date_created, best_post.author.user.username, best_post.rating, best_post.title, best_post.preview())
+
+
+best_post_comments = Comment.objects.filter(post=best_post)
+for comment in best_post_comments:
+    print(comment.date_created, comment.user.username, comment.rating, comment.text)
+
