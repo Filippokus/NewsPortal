@@ -1,0 +1,27 @@
+{% extends "default.html" %}
+
+{% block content %}
+    <h1>Combined News and Articles List</h1>
+
+    <!-- Выводим количество новостей -->
+    <p>Все новости: {{ posts|length }}</p>
+
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <!-- Заголовок новости -->
+                    <h2><a href="{% url 'news_detail' post.pk %}">{{ post.title }}</a></h2>
+
+                    <!-- Дата публикации в формате день.месяц.год -->
+                    <p>Опубликовано: {{ post.date_created|date:"d.m.Y" }}</p>
+
+                    <!-- Первые 20 слов текста статьи -->
+                    <p>{{ post.text|truncatewords:20 }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Новостей нет.</p>
+    {% endif %}
+{% endblock %}
