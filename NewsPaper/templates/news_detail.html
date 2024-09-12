@@ -1,12 +1,12 @@
 {% extends "default.html" %}
-
+{% load censor %}
 {% block content %}
     <!-- Заголовок статьи -->
-    <h1>{{ news_item.title }}</h1>
+    <h1>{{ news_item.title|censor }}</h1>
 
     <!-- Дата публикации в формате день.месяц.год -->
     <p>Опубликовано: {{ news_item.date_created|date:"d.m.Y" }}</p>
 
     <!-- Полный текст статьи -->
-    <p>{{ news_item.text }}</p>
+    <p>{{ news_item.text|censor }}</p>
 {% endblock %}
