@@ -1,21 +1,21 @@
 {% extends "default.html" %}
 
 {% block content %}
-  <h1>Новости</h1>
+  <h1>Статьи</h1>
 
-  <!-- Кнопка для добавления новости -->
+  <!-- Кнопка для добавления статьи -->
   <div style="margin-bottom: 20px;">
-    <a href="{% url 'news_create' %}">
-      <button type="button">Добавить новость</button>
+    <a href="{% url 'article_create' %}">
+      <button type="button">Добавить статью</button>
     </a>
   </div>
 
-  <!-- Отображение списка новостей -->
+  <!-- Отображение списка статей -->
   {% if posts %}
     <ul>
       {% for post in posts %}
         <li>
-          <a href="{% url 'news_detail' post.pk %}"><strong>{{ post.title }}</strong></a>
+          <a href="{% url 'article_detail' post.pk %}"><strong>{{ post.title }}</strong></a>
           by {{ post.author.user.username }} ({{ post.date_created|date:"Y-m-d" }})
         </li>
       {% endfor %}
@@ -42,6 +42,6 @@
       {% endif %}
     </div>
   {% else %}
-    <p>Новостей нет.</p>
+    <p>Статей нет.</p>
   {% endif %}
 {% endblock %}

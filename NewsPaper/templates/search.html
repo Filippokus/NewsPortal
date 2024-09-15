@@ -1,0 +1,35 @@
+{% extends "default.html" %}
+
+{% load censor %}
+
+{% block content %}
+<h1>Поиск новостей</h1>
+
+<!-- Форма фильтрации -->
+<form method="get" action="{% url 'news_search' %}">
+    <label for="title">Название новости:</label>
+    <input type="text" name="title" id="title" value="{{ request.GET.title }}">
+
+    <label for="author">Имя автора:</label>
+    <input type="text" name="author" id="author" value="{{ request.GET.author }}">
+
+    <label for="date_after">Дата после:</label>
+    <input type="date" name="date_after" id="date_after" value="{{ request.GET.date_after }}">
+
+    <button type="submit">Искать</button>
+</form>
+
+<!-- Отображение результатов поиска -->
+{% if posts %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'news_detail' post.pk %}"><strong>{{ post.title|censor }}</strong></a>
+                by {{ post.author.user.username }} ({{ post.date_created|date:"Y-m-d" }})
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Новостей не найдено. Попробуйте изменить критерии поиска!</p>
+{% endif %}
+{% endblock %}
