@@ -1,26 +1,19 @@
 from django.urls import path
-from .views import (home, NewsList, ArticlesList, ArticleDetail, NewsDetail, NewsSearchView,
-                    NewsCreateView, NewsUpdateView, NewsDeleteView,
-                    ArticleCreateView, ArticleUpdateView, ArticleDeleteView)
+from .views import (PostListView, PostDeleteView,
+                    PostUpdateView, PostCreateView, PostDetailView, NewsSearchView)
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('posts/search/', NewsSearchView.as_view(), name='search'),
 
+    path('posts/', PostListView.as_view(), name='post_list'),
+    path('posts/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
 
-    # Маршруты для новостей
+    path('news/create/', PostCreateView.as_view(), name='news_create'),
+    path('articles/create/', PostCreateView.as_view(), name='article_create'),
 
-    path('news/', NewsList.as_view(), name='news_list'),
-    path('news/<int:pk>/', NewsDetail.as_view(), name='news_detail'),
-    path('news/search/', NewsSearchView.as_view(), name='news_search'),
-    path('news/create/', NewsCreateView.as_view(), name='news_create'),
-    path('news/<int:pk>/edit/', NewsUpdateView.as_view(), name='news_edit'),
-    path('news/<int:pk>/delete/', NewsDeleteView.as_view(), name='news_delete'),
+    path('news/<int:pk>/edit/', PostUpdateView.as_view(), name='news_edit'),
+    path('articles/<int:pk>/edit/', PostUpdateView.as_view(), name='article_edit'),
 
-    # Маршруты для статей
-
-    path('articles/', ArticlesList.as_view(), name='articles_list'),
-    path('articles/<int:pk>/', ArticleDetail.as_view(), name='article_detail'),
-    path('articles/create/', ArticleCreateView.as_view(), name='article_create'),
-    path('articles/<int:pk>/edit/', ArticleUpdateView.as_view(), name='article_edit'),
-    path('articles/<int:pk>/delete/', ArticleDeleteView.as_view(), name='article_delete'),
+    path('news/<int:pk>/delete/', PostDeleteView.as_view(), name='news_delete'),
+    path('articles/<int:pk>/delete/', PostDeleteView.as_view(), name='article_delete'),
 ]

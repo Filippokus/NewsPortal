@@ -1,11 +1,11 @@
 {% extends "default.html" %}
 
 {% block content %}
-  <h1>Удалить статью</h1>
-  <p>Вы уверены, что хотите удалить статью"{{ object.title }}"?</p>
+  <h1>Удалить статью "{{ object.title }}"?</h1>
+  <p>Вы уверены, что хотите удалить эту статью?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit">Удалить</button>
+    <button type="submit">Удалить статью</button>
+    <a href="{% url 'post_detail' object.pk %}">Отмена</a>
   </form>
-  <a href="{% url 'news_list' %}">Отменить</a>
 {% endblock %}

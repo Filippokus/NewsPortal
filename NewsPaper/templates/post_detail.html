@@ -1,0 +1,34 @@
+{% extends "default.html" %}
+{% load censor %}
+{% block content %}
+  <h1>{{ post.title|censor}}</h1>
+  <p>Тип поста: {{ post.get_post_type_display }}</p>
+  <p>Автор: {{ post.author.user.username }}</p>
+  <p>Дата публикации: {{ post.date_created|date:"d.m.Y" }}</p>
+  <p>{{ post.text|censor }}</p>
+
+  <!-- Кнопки для редактирования и удаления -->
+  <div style="margin-top: 20px;">
+    <!-- Кнопка редактирования -->
+    {% if post.post_type == 'NW' %}
+      <a href="{% url 'news_edit' post.pk %}">
+        <button type="button">Редактировать новость</button>
+      </a>
+    {% elif post.post_type == 'AR' %}
+      <a href="{% url 'article_edit' post.pk %}">
+        <button type="button">Редактировать статью</button>
+      </a>
+    {% endif %}
+
+    <!-- Кнопка удаления -->
+    {% if post.post_type == 'NW' %}
+      <a href="{% url 'news_delete' post.pk %}">
+        <button type="button" style="background-color: red; color: white;">Удалить новость</button>
+      </a>
+    {% elif post.post_type == 'AR' %}
+      <a href="{% url 'article_delete' post.pk %}">
+        <button type="button" style="background-color: red; color: white;">Удалить статью</button>
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}

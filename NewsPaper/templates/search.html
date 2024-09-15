@@ -6,7 +6,7 @@
 <h1>Поиск новостей</h1>
 
 <!-- Форма фильтрации -->
-<form method="get" action="{% url 'news_search' %}">
+<form method="get" action="{% url 'search' %}">
     <label for="title">Название новости:</label>
     <input type="text" name="title" id="title" value="{{ request.GET.title }}">
 
@@ -24,7 +24,7 @@
     <ul>
         {% for post in posts %}
             <li>
-                <a href="{% url 'news_detail' post.pk %}"><strong>{{ post.title|censor }}</strong></a>
+                <a href="{% url 'post_detail' post.pk %}"><strong>{{ post.title|censor }}</strong></a>
                 by {{ post.author.user.username }} ({{ post.date_created|date:"Y-m-d" }})
             </li>
         {% endfor %}

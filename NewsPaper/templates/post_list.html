@@ -1,22 +1,24 @@
 {% extends "default.html" %}
-
+{% load censor %}
 {% block content %}
-  <h1>Новости</h1>
+  <h1>Новости и статьи</h1>
 
-  <!-- Кнопка для добавления новости -->
+  <!-- Ссылки для создания новостей и статей -->
   <div style="margin-bottom: 20px;">
     <a href="{% url 'news_create' %}">
       <button type="button">Добавить новость</button>
     </a>
+    <a href="{% url 'article_create' %}">
+      <button type="button">Добавить статью</button>
+    </a>
   </div>
 
-  <!-- Отображение списка новостей -->
+  <!-- Отображение постов -->
   {% if posts %}
     <ul>
       {% for post in posts %}
         <li>
-          <a href="{% url 'news_detail' post.pk %}"><strong>{{ post.title }}</strong></a>
-          by {{ post.author.user.username }} ({{ post.date_created|date:"Y-m-d" }})
+          <a href="{% url 'post_detail' post.pk %}">{{ post.title|censor }}</a>
         </li>
       {% endfor %}
     </ul>
@@ -42,6 +44,6 @@
       {% endif %}
     </div>
   {% else %}
-    <p>Новостей нет.</p>
+    <p>Нет постов.</p>
   {% endif %}
 {% endblock %}
