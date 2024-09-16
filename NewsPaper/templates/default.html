@@ -15,6 +15,19 @@
                 <li><a href="{% url 'post_list' %}">Новости</a></li>
                 <li><a href="{% url 'search' %}">Поиск</a></li> <!-- Кнопка для поиска -->
             </ul>
+
+            <!-- Проверка на аутентификацию -->
+            <div>
+                {% if user.is_authenticated %}
+                    <p>Привет, {{ user.username }}!</p>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Войти</a>
+                {% endif %}
+            </div>
         </nav>
     </header>
     <main>

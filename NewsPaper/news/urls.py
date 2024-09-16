@@ -1,8 +1,11 @@
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from .views import (PostListView, PostDeleteView,
                     PostUpdateView, PostCreateView, PostDetailView, NewsSearchView)
 
 urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('posts/search/', NewsSearchView.as_view(), name='search'),
 
     path('posts/', PostListView.as_view(), name='post_list'),

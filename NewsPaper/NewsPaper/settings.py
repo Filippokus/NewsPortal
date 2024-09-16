@@ -122,6 +122,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_REDIRECT_URL = '/posts/'  # Куда перенаправлять после успешного входа
+LOGOUT_REDIRECT_URL = '/posts/'  # Куда перенаправлять после выхода
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]

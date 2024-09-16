@@ -1,7 +1,8 @@
+from django.http import HttpResponseForbidden
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
-from django.shortcuts import render
 from .models import Post
 from .forms import PostForm
 from .filters import PostFilter
@@ -52,9 +53,11 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
+    login_url = '/login/'
+    success_url = reverse_lazy('post_list')
 
     def get_template_names(self):
         if self.object.post_type == 'NW':
@@ -62,8 +65,6 @@ class PostUpdateView(UpdateView):
         elif self.object.post_type == 'AR':
             return ['article_edit.html']
         return super().get_template_names()
-
-    success_url = reverse_lazy('post_list')
 
 
 class PostDeleteView(DeleteView):
