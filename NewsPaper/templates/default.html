@@ -20,12 +20,13 @@
             <div>
                 {% if user.is_authenticated %}
                     <p>Привет, {{ user.username }}!</p>
-                    <form method="post" action="{% url 'logout' %}">
+                    <form method="post" action="{% url 'account_logout' %}">
                         {% csrf_token %}
                         <button type="submit">Выйти</button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}">Войти</a>
+                    <a href="{% url 'account_login' %}">Войти</a>
+                    <a href="{% url 'account_signup' %}">Регистрация</a>
                 {% endif %}
             </div>
         </nav>

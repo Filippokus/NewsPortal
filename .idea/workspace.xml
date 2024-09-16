@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Изменение логики обработки запросов">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/registration/login.html" afterDir="false" />
+    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Добавлена аутенфикация в UpdateView с помощью Mixin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/default.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/default.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,13 +101,22 @@
       <option name="project" value="LOCAL" />
       <updated>1726425621995</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Добавлена аутенфикация в UpdateView с помощью Mixin">
+      <option name="closed" value="true" />
+      <created>1726477288587</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726477288587</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создан проект NewsPortal, создал модели в news: Author, Category, Post, PostCategory, Comment. А также модели к ним." />
     <MESSAGE value="Продолжаем постигать шаблоны." />
     <MESSAGE value="Изменение логики обработки запросов" />
-    <option name="LAST_COMMIT_MESSAGE" value="Изменение логики обработки запросов" />
+    <MESSAGE value="Добавлена аутенфикация в UpdateView с помощью Mixin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена аутенфикация в UpdateView с помощью Mixin" />
   </component>
 </project>

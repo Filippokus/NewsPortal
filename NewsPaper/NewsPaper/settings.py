@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-vjbw4x=$2c+#4@u1%v*hty-%2wb5b%6cz9c0@_9%@ffcyehz)h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+
 
 
 # Application definition
@@ -40,6 +41,11 @@ INSTALLED_APPS = [
     'news',
     'accounts',
     'django_filters',
+    'django.contrib.sites',  # Нужно для allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.yandex',
 
 ]
 
@@ -51,9 +57,30 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
+SITE_ID = 1
 
 ROOT_URLCONF = 'NewsPaper.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # Стандартная аутентификация Django
+    'allauth.account.auth_backends.AuthenticationBackend',  # Аутентификация через allauth
+)
+
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Требовать подтверждение почты
+ACCOUNT_EMAIL_REQUIRED = True  # Требовать почту при регистрации
+ACCOUNT_USERNAME_REQUIRED = False  # Отключить использование имени пользователя, если не нужн
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Для тестирования через консоль
+
+SOCIALACCOUNT_PROVIDERS = {
+    'yandex': {
+        'APP': {
+            'client_id': 'f35a0f0e14e245af98e60418a3b2b9dc',
+            'secret': '8d688edbec5a4d2bb56e3a686b0ee546',
+        }
+    }
+}
 
 TEMPLATES = [
     {
@@ -122,9 +149,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/posts/'  # Куда перенаправлять после успешного входа
-LOGOUT_REDIRECT_URL = '/posts/'  # Куда перенаправлять после выхода
-
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
