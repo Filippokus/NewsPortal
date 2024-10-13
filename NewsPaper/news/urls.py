@@ -1,7 +1,9 @@
 from django.contrib.auth import views as auth_views
 from django.urls import path
+from allauth.account.views import SignupView
 from .views import (PostListView, PostDeleteView,
-                    PostUpdateView, PostCreateView, PostDetailView, NewsSearchView)
+                    PostUpdateView, PostCreateView, PostDetailView, NewsSearchView, BecomeAuthorView)
+
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list'),
@@ -20,4 +22,7 @@ urlpatterns = [
 
     path('news/<int:pk>/delete/', PostDeleteView.as_view(), name='news_delete'),
     path('articles/<int:pk>/delete/', PostDeleteView.as_view(), name='article_delete'),
+
+    path('become_author/', BecomeAuthorView.as_view(), name='become_author'),
+    path('accounts/signup/', SignupView.as_view(), name='account_signup'),
 ]

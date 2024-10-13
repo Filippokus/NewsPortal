@@ -68,10 +68,16 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',  # Аутентификация через allauth
 )
 
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"  # Требовать подтверждение почты
-ACCOUNT_EMAIL_REQUIRED = True  # Требовать почту при регистрации
-ACCOUNT_USERNAME_REQUIRED = False  # Отключить использование имени пользователя, если не нужн
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Для тестирования через консоль
+# Отключить проверку email после регистрации
+ACCOUNT_EMAIL_VERIFICATION = "none"  # Отключает требование подтверждения email
+ACCOUNT_EMAIL_REQUIRED = True  # Email обязателен, но не нужно его подтверждать
+ACCOUNT_AUTHENTICATION_METHOD = "email"  # Можно входить через email
+
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_FORMS = {'signup': 'news.forms.CustomSignupForm'}
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'yandex': {
@@ -93,6 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'news.context_processors.is_author',
             ],
         },
     },
@@ -116,20 +123,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
