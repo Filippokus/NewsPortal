@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv
+
+# Загрузка переменных из .env
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -69,7 +75,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Отключить проверку email после регистрации
-ACCOUNT_EMAIL_VERIFICATION = "none"  # Отключает требование подтверждения email
+# ACCOUNT_EMAIL_VERIFICATION = "none"  # Отключает требование подтверждения email
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_REQUIRED = True  # Email обязателен, но не нужно его подтверждать
 ACCOUNT_AUTHENTICATION_METHOD = "email"  # Можно входить через email
 
@@ -171,3 +178,40 @@ if DEBUG:
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER_LOCAL')  # Почта берется из .env
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Пароль берется из .env
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'news': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
+
+DEFAULT_FROM_EMAIL = f"{EMAIL_HOST_USER}@{os.getenv('EMAIL_DOMAIN')}"
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3  # Время истечения ссылки
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[NewsPortal]'  # Префикс для всех писем
+

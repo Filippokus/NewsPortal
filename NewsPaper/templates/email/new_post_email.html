@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая статья в вашем разделе</title>
+</head>
+<body>
+    <p>Здравствуй, {{ username }}!</p>
+    <p>Новая статья в твоём любимом разделе!</p>
+
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.text|slice:":50" }}...</p>
+</body>
+</html>

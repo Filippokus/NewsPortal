@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Создать новость</h1>
+  <p>Автор: {{ user.username }}</p> <!-- Информация об авторе -->
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

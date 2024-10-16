@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Авторизация и регистрация + Permissions" />
+    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Авторизация и регистрация + Permissions">
+      <change afterPath="$PROJECT_DIR$/NewsPaper/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/news/signals.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/email/email_confirmation_signup_message.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/email/email_confirmation_subject.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/email/new_post_email.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/email/welcome_email.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/context_processors.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/context_processors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/news/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/article_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/article_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/news_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/news_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/post_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/post_detail.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +33,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -43,16 +63,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/filipp/PycharmProjects/NewsPortal/NewsPaper/static&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;cn.yiiguxing.plugin.translate&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/filipp/PycharmProjects/NewsPortal/NewsPaper/static",
+    "settings.editor.selected.configurable": "proofread"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/NewsPaper/static" />
@@ -134,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728804147874</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Авторизация и регистрация + Permissions">
+      <option name="closed" value="true" />
+      <created>1728814902095</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1728814902095</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

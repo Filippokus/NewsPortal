@@ -1,13 +1,19 @@
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import Group
 from django import forms
-from .models import Post
+from .models import Post, Category, Author
 
 
 class PostForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+
     class Meta:
         model = Post
-        fields = ['title', 'text', 'author']  # Поля, которые пользователь должен заполнять
+        fields = ['title', 'text', 'categories']  # Поля, которые пользователь должен заполнять
 
 
 class CustomSignupForm(SignupForm):
