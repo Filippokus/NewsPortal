@@ -8,6 +8,9 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 import os
 
+from django.urls import reverse
+from django.conf import settings
+
 from .models import Post
 
 logger = logging.getLogger(__name__)
@@ -63,11 +66,13 @@ def notify_subscriber_about_post(post, subscriber):
     try:
         # Формирование темы письма и HTML содержимого
         subject = post.title
+        post_url = f"{settings.SITE_URL}{reverse('post_detail', kwargs={'pk': post.pk})}"
         html_content = render_to_string(
             'email/new_post_email.html',
-            {'post': post, 'username': subscriber.username}
+            {'post': post, 'username': subscriber.username, 'post_url': post_url}
         )
-        text_content = f"Здравствуй, {subscriber.username}. Новая статья в твоём любимом разделе!"
+        text_content = (f"Здравствуй, {subscriber.username}. "
+                        f"Новая статья в твоём любимом разделе! Перейди по ссылке для просмотра: {post_url}")
 
         # Отправка письма
         msg = EmailMultiAlternatives(

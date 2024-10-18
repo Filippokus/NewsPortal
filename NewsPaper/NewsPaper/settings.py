@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-
+SITE_URL = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news',
+    'sign',
     'accounts',
     'django_filters',
     'django.contrib.sites',  # Нужно для allauth
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
+
 
 ]
 
@@ -214,4 +217,14 @@ LOGGING = {
 DEFAULT_FROM_EMAIL = f"{EMAIL_HOST_USER}@{os.getenv('EMAIL_DOMAIN')}"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3  # Время истечения ссылки
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[NewsPortal]'  # Префикс для всех писем
+
+
+# формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд,
+# то она автоматически снимается,
+# можете поставить время побольше, но как правило,
+# python manage.py migrateэто сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 

@@ -47,7 +47,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
     rating = models.IntegerField(default=0)
-    
+
     def preview(self):
         return self.text[:124] + '...'
 
@@ -58,6 +58,7 @@ class Post(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
 
 
 class PostCategory(models.Model):

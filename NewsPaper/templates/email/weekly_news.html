@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новые статьи за неделю</title>
+</head>
+<body>
+    <h1>Привет, {{ username }}!</h1>
+    <p>Вот список новых статей, которые появились за неделю в твоих любимых категориях:</p>
+
+    <ul>
+        {% for post, post_url in posts_with_urls %}
+        <li>
+            <a href="{{ post_url }}">{{ post.title }}</a>
+            <p>{{ post.preview }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p>Спасибо, что остаетесь с нами!</p>
+</body>
+</html>
