@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Добавлены сигналы: приветственное письмо, при добавлении поста">
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/management/commands/runapscheduler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/news/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/sign/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/email/weekly_news.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NewsPaper/templates/sign/logout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/NewsPaper/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/news/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/news/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/email/new_post_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/email/new_post_email.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/sign/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NewsPaper/templates/registration/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/NewsPaper/templates/sign/signup.html" afterDir="false" />
-    </list>
+    <list default="true" id="a8e970f5-700f-40da-bc4d-2b620bcd07f0" name="Changes" comment="Реализована задача еженедельной отправки писем" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,7 +158,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729099596003</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Реализована задача еженедельной отправки писем">
+      <option name="closed" value="true" />
+      <created>1729242420110</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1729242420110</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -185,6 +177,7 @@
     <MESSAGE value="добавлен allauth и регистрация через OAuth.Yandex" />
     <MESSAGE value="Авторизация и регистрация + Permissions" />
     <MESSAGE value="Добавлены сигналы: приветственное письмо, при добавлении поста" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены сигналы: приветственное письмо, при добавлении поста" />
+    <MESSAGE value="Реализована задача еженедельной отправки писем" />
+    <option name="LAST_COMMIT_MESSAGE" value="Реализована задача еженедельной отправки писем" />
   </component>
 </project>
