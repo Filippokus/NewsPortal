@@ -1,0 +1,11 @@
+<h1>Привет, {{ username }}!</h1>
+<p>Вот последние новости за прошедшую неделю:</p>
+<ul>
+  {% for post in posts %}
+    <li>
+      <strong>{{ post.title }}</strong><br>
+      {{ post.text|truncatewords:20 }}... <a href="{{ post.get_absolute_url }}">Читать далее</a>
+    </li>
+  {% endfor %}
+</ul>
+<p>Спасибо, что вы с нами!</p>

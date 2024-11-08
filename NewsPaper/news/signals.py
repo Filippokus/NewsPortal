@@ -5,13 +5,13 @@ from django.db.models.signals import post_save, m2m_changed
 from allauth.account.signals import user_signed_up
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
 import os
 
 from django.urls import reverse
 from django.conf import settings
 
 from .models import Post
+from .tasks import notify_subscriber_about_post
 
 logger = logging.getLogger(__name__)
 
@@ -48,48 +48,6 @@ def send_welcome_email(sender, request, user, **kwargs):
     )
 
 
-def notify_subscriber_about_post(post, subscriber):
-    """
-    Отправляет письмо подписчику с уведомлением о новом посте.
-
-    Параметры:
-    - post: объект поста, содержащий информацию о новости или статье.
-    - subscriber: объект пользователя, подписанного на категорию, к которой относится пост.
-
-    Процесс:
-    1. Формируется заголовок письма и HTML-содержимое, содержащее название поста и имя подписчика.
-    2. Отправляется письмо с текстовой и HTML-версиями.
-
-    Отправка выполняется с помощью `EmailMultiAlternatives`, что позволяет
-    отправить как текстовую, так и HTML-версию письма.
-    """
-    try:
-        # Формирование темы письма и HTML содержимого
-        subject = post.title
-        post_url = f"{settings.SITE_URL}{reverse('post_detail', kwargs={'pk': post.pk})}"
-        html_content = render_to_string(
-            'email/new_post_email.html',
-            {'post': post, 'username': subscriber.username, 'post_url': post_url}
-        )
-        text_content = (f"Здравствуй, {subscriber.username}. "
-                        f"Новая статья в твоём любимом разделе! Перейди по ссылке для просмотра: {post_url}")
-
-        # Отправка письма
-        msg = EmailMultiAlternatives(
-            subject=subject,
-            body=text_content,  # Текстовая версия письма
-            from_email=f"{os.getenv('EMAIL_HOST_USER_LOCAL')}@{os.getenv('EMAIL_DOMAIN')}",
-            to=[subscriber.email]
-        )
-        msg.attach_alternative(html_content, "text/html")  # HTML версия письма
-        msg.send(fail_silently=False)
-
-        logger.info(f"Письмо успешно отправлено {subscriber.email}")
-
-    except Exception as e:
-        logger.error(f"Ошибка при отправке письма для {subscriber.email}: {e}")
-
-
 @receiver(m2m_changed, sender=Post.categories.through)
 def notify_subscribers_on_category_change(sender, instance, action, **kwargs):
     """
@@ -112,5 +70,6 @@ def notify_subscribers_on_category_change(sender, instance, action, **kwargs):
                 logger.info(f"Категория '{category.name}' имеет {subscribers.count()} подписчиков.")
 
                 for subscriber in subscribers:
-                    logger.info(f"Отправка письма подписчику: {subscriber.email}")
-                    notify_subscriber_about_post(post, subscriber)
+                    logger.info(f"Отправка задачи для подписчика: {subscriber.email}")
+                    # Запуск задачи через Celery с использованием delay() и передачей данных
+                    notify_subscriber_about_post.delay(post.pk, subscriber.email, subscriber.username)
