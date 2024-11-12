@@ -1,16 +1,20 @@
 {% extends "default.html" %}
 {% load censor %}
+{% load cache %}
+
 {% block content %}
   <h1>Новости и статьи</h1>
 
   <!-- Ссылки для создания новостей и статей -->
   <div style="margin-bottom: 20px;">
+    {% cache 600 create_links %}
     <a href="{% url 'news_create' %}">
       <button type="button">Добавить новость</button>
     </a>
     <a href="{% url 'article_create' %}">
       <button type="button">Добавить статью</button>
     </a>
+    {% endcache %}
   </div>
 
   <!-- Отображение постов -->
@@ -25,23 +29,25 @@
 
     <!-- Пагинация -->
     <div class="pagination">
-      {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; Первая</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-      {% endif %}
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number|add:'-2' <= num <= page_obj.number|add:'2' %}
-          {% if num == page_obj.number %}
-            <strong>{{ num }}</strong>
-          {% else %}
-            <a href="?page={{ num }}">{{ num }}</a>
-          {% endif %}
+      {% cache 60 pagination page_obj %}
+        {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; Первая</a>
+          <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
         {% endif %}
-      {% endfor %}
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
-      {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number|add:'-2' <= num <= page_obj.number|add:'2' %}
+            {% if num == page_obj.number %}
+              <strong>{{ num }}</strong>
+            {% else %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+      {% endcache %}
     </div>
   {% else %}
     <p>Нет постов.</p>

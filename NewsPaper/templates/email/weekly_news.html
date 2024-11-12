@@ -9,6 +9,8 @@
     <h1>Привет, {{ username }}!</h1>
     <p>Вот список новых статей, которые появились за неделю в твоих любимых категориях:</p>
 
+    {% load cache %}
+    {% cache 86400 weekly_favorites_posts %}  {# Кэшируем на один день (86400 секунд) #}
     <ul>
         {% for post, post_url in posts_with_urls %}
         <li>
@@ -17,6 +19,7 @@
         </li>
         {% endfor %}
     </ul>
+    {% endcache %}
 
     <p>Спасибо, что остаетесь с нами!</p>
 </body>

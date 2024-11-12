@@ -1,38 +1,45 @@
 {% extends "default.html" %}
 {% load censor %}
 {% block content %}
-  <h1>{{ post.title|censor}}</h1>
+{% load cache %}
+{% cache 300 post_header post.pk %}
+  <h1>{{ post.title|censor }}</h1>
   <p>Тип поста: {{ post.get_post_type_display }}</p>
   <p>Автор: {{ post.author.user.username }}</p>
   <p>Дата публикации: {{ post.date_created|date:"d.m.Y" }}</p>
+{% endcache %}
 
   <p>Категории:</p>
   <div class="categories-container">
-  {% for category in post.categories.all %}
-    <div class="category-block">
-      <span class="category-name">{{ category.name }}</span>
+      {% cache 300 categories post.pk %}
+        {% for category in post.categories.all %}
+        <div class="category-block">
+            <span class="category-name">{{ category.name }}</span>
 
-      {% if user.is_authenticated %}
-          {% if user in category.subscribers.all %}
-              <!-- Кнопка для отписки -->
-              <form action="{% url 'unsubscribe_from_category' category.id post.pk %}" method="post" style="display: inline;">
-                  {% csrf_token %}
-                  <button type="submit" class="unsubscribe-button">Отписаться</button>
-              </form>
-          {% else %}
-              <!-- Кнопка для подписки -->
-              <form action="{% url 'subscribe_to_category' category.id post.pk %}" method="post" style="display: inline;">
-                  {% csrf_token %}
-                  <button type="submit" class="subscribe-button">Подписаться</button>
-              </form>
-          {% endif %}
-      {% endif %}
-    </div>
-  {% endfor %}
+            {% if user.is_authenticated %}
+                {% if user in category.subscribers.all %}
+                    <!-- Кнопка для отписки -->
+                    <form action="{% url 'unsubscribe_from_category' category.id post.pk %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="unsubscribe-button">Отписаться</button>
+                    </form>
+                {% else %}
+                    <!-- Кнопка для подписки -->
+                      <form action="{% url 'subscribe_to_category' category.id post.pk %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <button type="submit" class="subscribe-button">Подписаться</button>
+                      </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endfor %}
+      {% endcache %}
 </div>
 
 
+  {% cache 300 post_content post.pk %}
   <p>{{ post.text|censor }}</p>
+  {% endcache %}
 
   <!-- Кнопки для редактирования и удаления -->
   <div style="margin-top: 20px;">

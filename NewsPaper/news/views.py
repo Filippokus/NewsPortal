@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 from .models import Post, Author, Category
 from .forms import PostForm
 from .filters import PostFilter
-
+from django.core.cache import cache # импортируем наш кэш
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +41,18 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post'
+
+    def get_object(self, *args, **kwargs):
+        # Используем идентификатор статьи для ключа кэша
+        obj = cache.get(f'post-{self.kwargs["pk"]}')
+
+        # Если статьи нет в кэше, получаем её из базы данных и сохраняем в кэше
+        if not obj:
+            obj = super().get_object(*args, **kwargs)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+
+        return obj
+
 
 
 class NewsSearchView(FilterView):

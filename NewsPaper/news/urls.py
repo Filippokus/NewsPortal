@@ -1,29 +1,27 @@
 from django.urls import path
-from .views import (PostListView, PostDeleteView,
-                    PostUpdateView, PostCreateView, PostDetailView, NewsSearchView, BecomeAuthorView,
-                    SubscribeToCategoryView, UnsubscribeFromCategoryView)
-
+from . import views
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    path('', PostListView.as_view(), name='post_list'),
+    path('', cache_page(60*10)(views.PostListView.as_view()), name='post_list'),
 
-    path('posts/search/', NewsSearchView.as_view(), name='search'),
+    path('posts/search/', views.NewsSearchView.as_view(), name='search'),
 
-    path('posts/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('posts/<int:pk>/', cache_page(60*10)(views.PostDetailView.as_view()), name='post_detail'),
 
-    path('news/create/', PostCreateView.as_view(), name='news_create'),
-    path('articles/create/', PostCreateView.as_view(), name='article_create'),
+    path('news/create/', views.PostCreateView.as_view(), name='news_create'),
+    path('articles/create/', views.PostCreateView.as_view(), name='article_create'),
 
-    path('news/<int:pk>/edit/', PostUpdateView.as_view(), name='news_edit'),
-    path('articles/<int:pk>/edit/', PostUpdateView.as_view(), name='article_edit'),
+    path('news/<int:pk>/edit/', views.PostUpdateView.as_view(), name='news_edit'),
+    path('articles/<int:pk>/edit/', views.PostUpdateView.as_view(), name='article_edit'),
 
-    path('news/<int:pk>/delete/', PostDeleteView.as_view(), name='news_delete'),
-    path('articles/<int:pk>/delete/', PostDeleteView.as_view(), name='article_delete'),
+    path('news/<int:pk>/delete/', views.PostDeleteView.as_view(), name='news_delete'),
+    path('articles/<int:pk>/delete/', views.PostDeleteView.as_view(), name='article_delete'),
 
-    path('become_author/', BecomeAuthorView.as_view(), name='become_author'),
+    path('become_author/', views.BecomeAuthorView.as_view(), name='become_author'),
 
-    path('subscribe/<int:category_id>/<int:post_id>/', SubscribeToCategoryView.as_view(),
+    path('subscribe/<int:category_id>/<int:post_id>/', views.SubscribeToCategoryView.as_view(),
          name='subscribe_to_category'),
-    path('unsubscribe/<int:category_id>/<int:post_id>/', UnsubscribeFromCategoryView.as_view(),
+    path('unsubscribe/<int:category_id>/<int:post_id>/', views.UnsubscribeFromCategoryView.as_view(),
          name='unsubscribe_from_category'),
 ]
