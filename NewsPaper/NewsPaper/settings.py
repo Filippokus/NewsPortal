@@ -14,6 +14,9 @@ from pathlib import Path
 
 import os
 from dotenv import load_dotenv
+import os
+print("EMAIL_HOST_USER_LOCAL:", os.getenv('EMAIL_HOST_USER_LOCAL'))  # Должно вывести значение переменной без кавычек
+print("EMAIL_DOMAIN:", os.getenv('EMAIL_DOMAIN'))  # Должно вывести 'yandex.ru'
 
 # Загрузка переменных из .env
 load_dotenv()
@@ -29,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vjbw4x=$2c+#4@u1%v*hty-%2wb5b%6cz9c0@_9%@ffcyehz)h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -189,32 +192,147 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER_LOCAL')  # Почта берется из .env
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Пароль берется из .env
+DEFAULT_FROM_EMAIL = f"{EMAIL_HOST_USER}@{os.getenv('EMAIL_DOMAIN')}"
+ADMINS = [('Admin', DEFAULT_FROM_EMAIL)]  # Список администраторов для уведомлений об ошибках
 
-
+print(ADMINS)
+# Конфигурация логирования
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
+    'version': 1,  # Версия конфигурации логирования
+    'disable_existing_loggers': False,  # Разрешить использование существующих логгеров
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',  # Логи только при DEBUG = True
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',  # Логи только при DEBUG = False
+        },
+    },
+    'formatters': {
+        # Формат для логов уровня DEBUG
+        'console_debug': {
+            'format': '{asctime} [{levelname}] {message}',
+            'style': '{',
+        },
+        # Формат для логов уровня WARNING с указанием пути к файлу
+        'console_warning': {
+            'format': '{asctime} [{levelname}] {pathname}: {message}',
+            'style': '{',
+        },
+        # Формат для логов уровня ERROR с указанием стека ошибок
+        'console_error': {
+            'format': '{asctime} [{levelname}] {pathname}: {message}\n{exc_info}',
+            'style': '{',
+        },
+        # Формат для общих логов в файл
+        'file_general': {
+            'format': '{asctime} [{levelname}] {module}: {message}',
+            'style': '{',
+        },
+        # Формат для логов ошибок в файл с указанием стека ошибок
+        'file_error': {
+            'format': '{asctime} [{levelname}] {pathname}: {message}\n{exc_info}',
+            'style': '{',
+        },
+        # Формат для логов безопасности
+        'security': {
+            'format': '{asctime} [{levelname}] {module}: {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
+        # Обработчик для логов уровня DEBUG в консоль
         'console': {
-            'level': 'INFO',
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+            'formatter': 'console_debug',
+        },
+        # Обработчик для логов уровня WARNING в консоль
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_warning',
+        },
+        # Обработчик для логов уровня ERROR в консоль
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'console_error',
+        },
+        # Обработчик для общих логов в файл (уровень INFO и выше)
+        'file_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'filename': 'general.log',  # Файл для общих логов
+            'formatter': 'file_general',
+        },
+        # Обработчик для логов ошибок в файл (уровень ERROR и выше)
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'errors.log',  # Файл для логов ошибок
+            'formatter': 'file_error',
+        },
+        # Обработчик для логов безопасности
+        'file_security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'security.log',  # Файл для логов безопасности
+            'formatter': 'security',
+        },
+        # Обработчик для отправки email об ошибках
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'file_error',  # Использование формата file_error (без стека ошибок)
         },
     },
     'loggers': {
+        # Основной логгер Django
         'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
+            'handlers': ['console', 'console_warning', 'console_error', 'file_general'],
+            'level': 'DEBUG',
+            'propagate': True,  # Разрешить передачу логов к родительским логгерам
         },
-        'news': {
-            'handlers': ['console'],
+        # Логгер для HTTP-запросов
+        'django.request': {
+            'handlers': ['file_error', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,  # Отключить передачу логов к родительским логгерам
+        },
+        # Логгер для ошибок сервера
+        'django.server': {
+            'handlers': ['file_error', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # Логгер для ошибок в шаблонах
+        'django.template': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # Логгер для ошибок в базе данных
+        'django.db.backends': {
+            'handlers': ['file_error'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # Логгер для событий, связанных с безопасностью
+        'django.security': {
+            'handlers': ['file_security'],
             'level': 'INFO',
-            'propagate': True,
+            'propagate': False,
         },
     },
 }
 
 
-DEFAULT_FROM_EMAIL = f"{EMAIL_HOST_USER}@{os.getenv('EMAIL_DOMAIN')}"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3  # Время истечения ссылки
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[NewsPortal]'  # Префикс для всех писем
 

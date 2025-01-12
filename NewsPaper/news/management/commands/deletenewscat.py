@@ -1,4 +1,3 @@
-import sys
 from django.core.management.base import BaseCommand
 from news.models import Category, Post
 
