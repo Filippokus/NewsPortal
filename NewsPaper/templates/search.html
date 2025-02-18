@@ -1,22 +1,22 @@
 {% extends "default.html" %}
 
 {% load censor %}
-
+{% load i18n %}
 {% block content %}
-<h1>Поиск новостей</h1>
+<h1>{% trans "Поиск новостей" %}</h1>
 
 <!-- Форма фильтрации -->
 <form method="get" action="{% url 'search' %}">
-    <label for="title">Название новости:</label>
+    <label for="title">{% trans "Название новости" %}:</label>
     <input type="text" name="title" id="title" value="{{ request.GET.title }}">
 
-    <label for="author">Имя автора:</label>
+    <label for="author">{% trans "Имя автора" %}:</label>
     <input type="text" name="author" id="author" value="{{ request.GET.author }}">
 
-    <label for="date_after">Дата после:</label>
+    <label for="date_after">{% trans "Дата после" %}:</label>
     <input type="date" name="date_after" id="date_after" value="{{ request.GET.date_after }}">
 
-    <button type="submit">Искать</button>
+    <button type="submit">{% trans "Искать" %}</button>
 </form>
 
 <!-- Отображение результатов поиска -->
@@ -30,6 +30,6 @@
         {% endfor %}
     </ul>
 {% else %}
-    <p>Новостей не найдено. Попробуйте изменить критерии поиска!</p>
+    <p>{% trans "Новостей не найдено. Попробуйте изменить критерии поиска!" %}</p>
 {% endif %}
 {% endblock %}

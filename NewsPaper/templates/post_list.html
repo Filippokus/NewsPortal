@@ -1,18 +1,18 @@
 {% extends "default.html" %}
 {% load censor %}
 {% load cache %}
-
+{% load i18n %}
 {% block content %}
-  <h1>Новости и статьи</h1>
+  <h1>{% trans "Новости и статьи" %}</h1>
 
   <!-- Ссылки для создания новостей и статей -->
   <div style="margin-bottom: 20px;">
     {% cache 600 create_links %}
     <a href="{% url 'news_create' %}">
-      <button type="button">Добавить новость</button>
+      <button type="button">{% trans "Добавить новость" %}</button>
     </a>
     <a href="{% url 'article_create' %}">
-      <button type="button">Добавить статью</button>
+      <button type="button">{% trans "Добавить статью" %}</button>
     </a>
     {% endcache %}
   </div>
@@ -31,8 +31,8 @@
     <div class="pagination">
       {% cache 60 pagination page_obj %}
         {% if page_obj.has_previous %}
-          <a href="?page=1">&laquo; Первая</a>
-          <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+          <a href="?page=1">&laquo; {% trans "Первая" %}</a>
+          <a href="?page={{ page_obj.previous_page_number }}">{% trans "Предыдущая" %}</a>
         {% endif %}
         {% for num in page_obj.paginator.page_range %}
           {% if page_obj.number|add:'-2' <= num <= page_obj.number|add:'2' %}
@@ -44,12 +44,12 @@
           {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+          <a href="?page={{ page_obj.next_page_number }}">{% trans "Следующая" %}</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "Последняя" %} &raquo;</a>
         {% endif %}
       {% endcache %}
     </div>
   {% else %}
-    <p>Нет постов.</p>
+    <p>{% trans "Нет постов." %}</p>
   {% endif %}
 {% endblock %}

@@ -15,11 +15,12 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 import os
-print("EMAIL_HOST_USER_LOCAL:", os.getenv('EMAIL_HOST_USER_LOCAL'))  # Должно вывести значение переменной без кавычек
-print("EMAIL_DOMAIN:", os.getenv('EMAIL_DOMAIN'))  # Должно вывести 'yandex.ru'
+
 
 # Загрузка переменных из .env
 load_dotenv()
+print("EMAIL_HOST_USER_LOCAL:", os.getenv('EMAIL_HOST_USER_LOCAL'))  # Должно вывести значение переменной без кавычек
+print("EMAIL_DOMAIN:", os.getenv('EMAIL_DOMAIN'))  # Должно вывести 'yandex.ru'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,6 +65,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'django.middleware.locale.LocaleMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,7 +88,7 @@ AUTHENTICATION_BACKENDS = (
 # ACCOUNT_EMAIL_VERIFICATION = "none"  # Отключает требование подтверждения email
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_REQUIRED = True  # Email обязателен, но не нужно его подтверждать
-ACCOUNT_AUTHENTICATION_METHOD = "email"  # Можно входить через email
+ACCOUNT_LOGIN_METHOD = "email"  # Можно входить через email
 
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -155,13 +159,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -343,7 +351,7 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 # если задача не выполняется за 25 секунд,
 # то она автоматически снимается,
 # можете поставить время побольше, но как правило,
-# python manage.py migrateэто сильно бьёт по производительности сервера
+# python manage.py migrate это сильно бьёт по производительности сервера
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 

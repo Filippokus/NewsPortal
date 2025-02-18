@@ -1,11 +1,11 @@
 {% extends "default.html" %}
-
+{% load i18n %}
 {% block content %}
-  <h1>Создать новость</h1>
-  <p>Автор: {{ user.username }}</p> <!-- Информация об авторе -->
+  <h1>{% trans "Создать новость" %}</h1>
+  <p>{% trans "Автор:" %} {{ user.username }}</p> <!-- Информация об авторе -->
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Создать</button>
+    <button type="submit">{% trans "Создать" %}</button>
   </form>
 {% endblock %}

@@ -17,7 +17,13 @@ from .forms import PostForm
 from .filters import PostFilter
 from django.core.cache import cache # импортируем наш кэш
 
+from django.utils.translation import gettext as _  # импортируем функцию для перевода
+from django.http import HttpResponse
+
+
 logger = logging.getLogger(__name__)
+
+# Create your views here.
 
 
 class PostListView(ListView):
