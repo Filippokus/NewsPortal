@@ -1,0 +1,175 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 19:41+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/article_create.html:5
+msgid "Создать статью"
+msgstr "Create Article"
+
+#: templates/article_create.html:6 templates/post_detail.html:9
+msgid "Автор"
+msgstr "Author"
+
+#: templates/article_create.html:10 templates/news_create.html:9
+msgid "Создать"
+msgstr "Create"
+
+#: templates/article_delete.html:4 templates/article_delete.html:8
+msgid "Удалить статью"
+msgstr "Delete Article"
+
+#: templates/article_delete.html:9 templates/news_delete.html:9
+msgid "Отмена"
+msgstr "Cancel"
+
+#: templates/article_edit.html:4 templates/post_detail.html:53
+msgid "Редактировать статью"
+msgstr "Edit Article"
+
+#: templates/article_edit.html:8 templates/news_edit.html:8
+msgid "Сохранить изменения"
+msgstr "Save Changes"
+
+#: templates/default.html:9
+msgid "Новостной сайт"
+msgstr "News Site"
+
+#: templates/default.html:29
+msgid "Новости"
+msgstr "News"
+
+#: templates/default.html:30
+msgid "Поиск"
+msgstr "Search"
+
+#: templates/default.html:36
+msgid "Привет,"
+msgstr "Hello,"
+
+#: templates/default.html:42
+msgid "Стать автором"
+msgstr "Become an Author"
+
+#: templates/default.html:48
+msgid "Выйти"
+msgstr "Logout"
+
+#: templates/default.html:51
+msgid "Войти"
+msgstr "Login"
+
+#: templates/default.html:52
+msgid "Регистрация"
+msgstr "Registration"
+
+#: templates/news_create.html:4
+msgid "Создать новость"
+msgstr "Create news"
+
+#: templates/news_create.html:5
+msgid "Автор:"
+msgstr "Author"
+
+#: templates/news_delete.html:4 templates/news_delete.html:8
+#: templates/post_detail.html:59
+msgid "Удалить новость"
+msgstr "Delete news"
+
+#: templates/news_delete.html:5
+msgid "Вы уверены, что хотите удалить эту новость?"
+msgstr "Are you sure want to delete this news?"
+
+#: templates/news_edit.html:4 templates/post_detail.html:49
+msgid "Редактировать новость"
+msgstr "Edit news"
+
+#: templates/post_detail.html:8
+msgid "Тип поста"
+msgstr "Post type"
+
+#: templates/post_detail.html:10
+msgid "Дата публикации"
+msgstr "Publication date"
+
+#: templates/post_detail.html:13
+msgid "Категории"
+msgstr "Categories"
+
+#: templates/post_detail.html:25
+msgid "Отписаться"
+msgstr "Unsubscirbe"
+
+#: templates/post_detail.html:31
+msgid "Подписаться"
+msgstr "Subscribe"
+
+#: templates/post_list.html:6
+msgid "Новости и статьи"
+msgstr "News and Articles"
+
+#: templates/post_list.html:12
+msgid "Добавить новость"
+msgstr "Add news"
+
+#: templates/post_list.html:15
+msgid "Добавить статью"
+msgstr "Add article"
+
+#: templates/post_list.html:34
+msgid "Первая"
+msgstr "First"
+
+#: templates/post_list.html:35
+msgid "Предыдущая"
+msgstr "Previous"
+
+#: templates/post_list.html:47
+msgid "Следующая"
+msgstr "Next"
+
+#: templates/post_list.html:48
+msgid "Последняя"
+msgstr "Last"
+
+#: templates/post_list.html:53
+msgid "Нет постов."
+msgstr "No posts."
+
+#: templates/search.html:6
+msgid "Поиск новостей"
+msgstr "News search"
+
+#: templates/search.html:10
+msgid "Название новости"
+msgstr "News title"
+
+#: templates/search.html:13
+msgid "Имя автора"
+msgstr "Author name"
+
+#: templates/search.html:16
+msgid "Дата после"
+msgstr "Date after"
+
+#: templates/search.html:19
+msgid "Искать"
+msgstr "Search"
+
+#: templates/search.html:33
+msgid "Новостей не найдено. Попробуйте изменить критерии поиска!"
+msgstr "No news found. Try changing your search criteria!"
